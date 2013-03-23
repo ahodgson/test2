@@ -7,6 +7,7 @@ gem 'rails', '3.2.12'
 
 group :development do
   gem 'sqlite3', '1.3.7'
+  gem 'rspec-rails', '2.13.0'
 end
 
 
@@ -38,6 +39,10 @@ gem 'jquery-rails', '2.2.1'
 
 # To use debugger
 # gem 'debugger'
+
+group :test do
+  gem 'capybara', '2.0.2'
+end
 
 group :production do
   gem 'pg', '0.14.1'
