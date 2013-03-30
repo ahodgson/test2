@@ -1,5 +1,11 @@
 Test2::Application.routes.draw do
 
+  resources :checkins
+
+
+  resources :events
+
+
   get "static_pages/home"
   get "static_pages/help"
 

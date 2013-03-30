@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Event:</b>
+  <%= @checkin.event_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @checkin.user_id %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @checkin.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @checkin.longitude %>
+</p>
+
+<p>
+  <b>Accuracy:</b>
+  <%= @checkin.accuracy %>
+</p>
+
+<p>
+  <b>Datetime:</b>
+  <%= @checkin.datetime %>
+</p>
+
+
+<%= link_to 'Edit', edit_checkin_path(@checkin) %> |
+<%= link_to 'Back', checkins_path %>

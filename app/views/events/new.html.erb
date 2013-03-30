@@ -1,0 +1,54 @@
+<h1>New Event dude</h1>
+<head>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+
+<script>
+    // Display map centred on user's location.  Provide marker to allow user to indicate event location
+    var map, marker, current_pos, initial_pos = new google.maps.LatLng(49.2649, -123.2351);
+
+    function updatePositionDisplay( latlng ) // updates the readout under the map with the supplied position
+        {  document.getElementById('latitude').value  = latlng.lat();
+           document.getElementById('longitude').value = latlng.lng();
+        }
+
+    function initializemap()
+      {
+        var mapOptions = { zoom: 14, center: initial_pos, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        //updatePositionDisplay( initial_pos );
+        /*current_pos = initial_pos;
+
+        marker = new google.maps.Marker({ draggable: true, position: current_pos, map: map,
+                                          title: "Drag me to your event location" });
+
+        google.maps.event.addListener(marker, 'dragend', function (event) { updatePositionDisplay( event.latLng ) } );
+*/
+      }
+        /*if (navigator.geolocation) // find user's position;  when found, callback recentres map & marker
+            {
+                document.getElementById('latitude').value = "Please wait...";
+                navigator.geolocation.getCurrentPosition( updatePosition );
+            }
+      }*/
+
+    /*function updatePosition(position) // callback from geolocation service - recentre map and marker
+      {
+         var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+         document.getElementById('latitude').value  = position.coords.latitude;
+         document.getElementById('longitude').value = position.coords.longitude;
+         map.setCenter( latlng );
+         marker.setPosition( latlng );
+      }
+*/
+    google.maps.event.addDomListener(window, 'load', initializemap);
+
+</script>
+</head>
+<p>Map:</p>
+<!-- Display map-->
+<div id="map" style="width: 80%; height: 60%;"></div>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', events_path %>
