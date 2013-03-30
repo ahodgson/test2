@@ -1,6 +1,83 @@
 <h1>Sample App</h1>
-<p>
-  This is the home page for the
-  <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-  sample application.
-</p>
+<head>
+<title>Google Maps JavaScript API v3 Example: Map Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map, #positiondisplay
+      {
+        margin: 1%; padding: 1%; height: 100%;
+      }
+    </style>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+
+<script>
+    // Display map centred on user's location.  Provide marker to allow user to indicate event location
+    var map, marker, current_pos = new google.maps.LatLng(49.2649, -123.2351);
+
+    function updatePositionDisplay( latlng ) // updates the readout under the map with the supplied position
+        {  document.getElementById('positiondisplay').value = latlng.lat() + ', ' + latlng.lng(); }
+
+    function initializemap()
+      {
+        var mapOptions = { zoom: 14, center: current_pos, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        updatePositionDisplay( current_pos );
+        //document.getElementById('markerstatus').value = "Waiting";
+        //document.getElementById('mapstatus').value = "Waiting";
+
+        marker = new google.maps.Marker({ draggable: true, position: current_pos, map: map,
+                                              title: "Drag me to your event location" });
+
+        google.maps.event.addListener(marker, 'dragend', function (event) { updatePositionDisplay( event.latLng ) } );
+        //google.maps.event.addListener(map,'click', function(event) { updatePositionDisplay( event.latLng ) } );
+        //google.maps.event.addListener(marker, 'drag', function (event) {document.getElementById('positiondisplay').value = "Dragging";})
+
+        if (navigator.geolocation) // find user's position;  when found, callback recentres map & marker
+            {
+                document.getElementById('positiondisplay').value = "Finding your position";
+                navigator.geolocation.getCurrentPosition( updatePosition );
+            }
+      }
+
+    function updatePosition(position) // callback from geolocation service - recentre map and marker
+      {
+         var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+         document.getElementById('positiondisplay').value = position.coords.latitude + ', ' + position.coords.longitude + ' - cool!';
+         map.setCenter( latlng );
+         marker.setPosition( latlng );
+      }
+
+    google.maps.event.addDomListener(window, 'load', initializemap);
+
+</script>
+
+<!--
+
+    /*google.maps.event.addlistener(marker, 'drag', function()
+        {document.getElementById('markerstatus').value = "Dragging";} )
+
+    google.maps.event.addlistener(marker, 'dragend', function()
+        {document.getElementById('markerstatus').value = "Done";} )
+
+    google.maps.event.addlistener(pickablemap, 'drag', function()
+        {document.getElementById('mapstatus').value = "Dragging";} )
+
+    google.maps.event.addlistener(pickablemap, 'dragend', function()
+        {document.getElementById('mapstatus').value = "Done";} )*/
+
+-->
+</head>
+
+<body>
+
+<div id="map" style="width: 80%; height: 60%;"></div>
+
+<div>Position:  <input type="text" id="positiondisplay" style="width:300px; border:1px inset gray;"> </div>
+<!--<div>Marker Status: <input type="text" id="markerstatus" style="width:100px; border:1px inset gray;"> </div>
+<div>Map Status: <input type="text" id="mapstatus" style="width:100px; border:1px inset gray;"> </div>
+-->
+</body>
+
